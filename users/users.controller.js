@@ -30,8 +30,8 @@ function getById(req, res, next) {
 }
 
 function create(req, res, next) {
-    userService.update(req.params.id, req.body)
-        .then(() => res.json({ message: 'User updated' }))
+    userService.create(req.body)
+        .then(() => res.json({ message: 'User created' }))
         .catch(next);
 }
 

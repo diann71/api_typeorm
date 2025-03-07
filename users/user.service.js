@@ -18,7 +18,7 @@ async function getById(id) {
 }
 
 async function create(params) {
-    if(await db.User.findOne({ where: { email: params.email }})) {
+    if(await db.User.findOne({ where: { email: params.email } })) {
         throw 'Email "' + params.email + '" is already registered';
     }
     
@@ -33,7 +33,7 @@ async function update(id, params) {
     const user = await getUser(id);
 
     const usernameChanged = params.username && user.username !== params.username;
-    if(usernameChanged && await db.User.findddOne({ where: { username: params.username }})) {
+    if(usernameChanged && await db.User.findOne({ where: { username: params.username }})) {
         throw 'Username "' + params.email + '" is already taken'; 
     }
 
@@ -51,7 +51,7 @@ async function _delete(id) {
 }
 
 async function getUser(id) {
-    const user = await db.User.findByPk(id);;
+    const user = await db.User.findByPk(id);
     if (!user) throw 'User not found';
     return user;
 }
