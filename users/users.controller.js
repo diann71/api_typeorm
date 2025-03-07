@@ -35,6 +35,12 @@ function create(req, res, next) {
         .catch(next);
 }
 
+function update(req,res, next){
+    userService.update(req.params.id, req.body)
+        .then(() => res.json({ message: 'User updated' }))
+        .catch(next);
+}
+
 function _delete(req, res, next) {
     userService.delete(req.params.id)
         .then(() => res.json({ message: 'User deleted' }))
@@ -50,7 +56,7 @@ function createSchema(req, res, next) {
         lastName: Joi.string().required(),
         role: Joi.string().valid(Role.Admin, Role.User).required(),
         email: Joi.string().email().required(),
-        password: Joi.string().min(6).required()
+        password: Joi.string().min(6).required(),
         confirmPassword: Joi.string().valid(Joi.ref('password')).required()
     });
     validateRequest(req, next, schema);
